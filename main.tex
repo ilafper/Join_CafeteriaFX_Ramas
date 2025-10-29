@@ -1,0 +1,137 @@
+\documentclass{article} 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}       
+\usepackage{geometry}       
+\usepackage{listings}  
+\usepackage{hyperref}       
+\usepackage{titling}        
+\usepackage{setspace}  % paquete para interlineado
+
+\setstretch{1.5} 
+\hypersetup{
+    colorlinks= true,
+    linkcolor= blue,
+    urlcolor=blue
+}
+\geometry{margin=1.5cm}
+
+\title{Análisis y especificaciones de requisitos}
+\author{Iván Alfaya Pérez}
+\date{\today}
+\newcommand{\subtitle}{Proyecto: Simulación Cafetería JAVA/JavaFX}
+\posttitle{\par\vspace{0.5cm}\large \subtitle\par\vskip 0.5cm}
+
+\begin{document}
+\maketitle
+
+\clearpage 
+\tableofcontents 
+\clearpage 
+
+%---------------------------------------------------------
+\section{Introducción}
+El proyecto tiene como objetivo simular el funcionamiento de una cafetería, con sus camareros y clientes.
+Se utiliza JavaFX para la interfaz gráfica y \texttt{Threads} de Java para simular la concurrencia entre clientes y camareros.  
+El sistema muestra en tiempo real el estado de los clientes y la preparación de sus pedidos, considerando la paciencia de cada cliente.
+
+%---------------------------------------------------------
+\section{Requisitos funcionales}
+\begin{itemize}
+    \item RF1: El sistema permite la creación de clientes con tiempos de espera (paciencia) definidos.
+    \item RF2: Cada camarero atiende a varios clientes de forma concurrente.
+    \item RF3: Si el tiempo de preparación del café supera la paciencia del cliente, este se retira sin ser atendido.
+    \item RF4: La interfaz gráfica muestra el estado de cada cliente y camarero en tiempo real.
+    \item RF5: Al finalizar la simulación, se muestra un resumen de los clientes atendidos y los que se marcharon.
+\end{itemize}
+
+%---------------------------------------------------------
+\section{Requisitos no funcionales}
+\begin{itemize}
+    \item RNF1: La aplicación se ejecuta en tiempo real utilizando hilos de Java.
+    \item RNF2: El código es modular y orientado a objetos.
+    \item RNF3: La interfaz gráfica es intuitiva y clara.
+    \item RNF4: El sistema es escalable para soportar más clientes y camareros.
+\end{itemize}
+
+%---------------------------------------------------------
+\section{Casos de uso}
+\begin{itemize}
+    \item \textbf{CU1 - Llegada de Cliente:} El cliente llega a la cafetería y espera ser atendido.
+    \item \textbf{CU2 - Atención de Cliente:} Los camareros preparan los cafés de manera concurrente.
+    \item \textbf{CU3 - Cliente Impaciente:} Si el tiempo de espera es demasiado largo, el cliente se marcha.
+    \item \textbf{CU4 - Finalización del Servicio:} Al terminar, se muestra un resumen de los clientes atendidos.
+\end{itemize}
+
+
+
+\newpage
+\section{Estructura general del sistema}
+El sistema se compone de varias clases principales: \texttt{HelloApplication}, \texttt{HelloController}, \texttt{Cliente} y \texttt{Camarero}.  
+Se utiliza JavaFX para la interfaz gráfica y Threads para la simulación concurrente.  
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{10cm}|}
+\hline
+\textbf{Clase / Componente} & \textbf{Descripción} \\
+\hline
+HelloApplication & Clase principal que inicia la aplicación JavaFX y carga la vista FXML. \\
+\hline
+HelloController & Controlador de la interfaz. Maneja eventos de botones y actualiza los TextArea con el estado de los camareros y clientes. \\
+\hline
+Cliente & Representa a un cliente. Cada cliente es un \texttt{Thread} que espera su café y puede irse si se excede su tiempo de paciencia. \\
+\hline
+Camarero & Representa un camarero. Cada camarero es un \texttt{Thread} que prepara cafés para los clientes asignados y actualiza la interfaz mediante \texttt{Platform.runLater()}. \\
+\hline
+Vista FXML & Interfaz visual con dos paneles para camareros, TextArea para mensajes y botón para iniciar la simulación. \\
+\hline
+\end{tabular}
+\caption{Clases y componentes principales del proyecto JavaFX.}
+\label{tab:clasesJavaFX}
+\end{table}
+
+
+
+
+
+\section{Diagrama conceptual simplificado}
+
+\begin{verbatim}
+HelloApplication
+ └── Inicia la interfaz JavaFX y carga HelloController
+
+HelloController
+ ├── Maneja eventos (botón "Empezar")
+ ├── Crea clientes y camareros
+ └── Actualiza TextArea y Label con clientes atendidos
+
+Cliente (Thread)
+ ├── nombre
+ ├── tiempoEspera
+ ├── atendido
+ └── run(): espera y puede ser interrumpido si se atiende
+
+Camarero (Thread)
+ ├── nombre
+ ├── listaClientes
+ ├── TextArea para mensajes
+ ├── atendidos (contador)
+ └── run(): prepara cafés y actualiza interfaz
+\end{verbatim}
+
+%---------------------------------------------------------
+\section{Interfaz JavaFX}
+La interfaz consiste en:
+
+\begin{itemize}
+    \item Un título principal “SIMULACIÓN CAFETERÍA”.
+    \item Dos paneles para cada camarero, con un \texttt{TextArea} que muestra los mensajes de preparación y atención de clientes.
+    \item Un Label que indica el número de clientes atendidos.
+    \item Un botón “Empezar” para iniciar la simulación.
+\end{itemize}
+
+La interfaz permite ver en tiempo real el flujo de clientes y la actividad de los camareros, mostrando cuándo los clientes reciben su café o se retiran por impaciencia.
+
+%---------------------------------------------------------
+\end{document}
