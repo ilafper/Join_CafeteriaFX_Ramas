@@ -36,7 +36,7 @@ class Cliente extends Thread {
         }
 
         if (!atendido) {
-            System.out.println(nombre + " se fue porque no recibió su café a tiempo");
+            System.out.println(nombre + " se fue porque no recibio su café a tiempo");
         }
     }
 }

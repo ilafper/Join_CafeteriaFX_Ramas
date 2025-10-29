@@ -9,17 +9,13 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-
         ejecutarSimulacion();
-
 
 
         System.exit(0); // Cierra el proceso JavaFX cuando termina
     }
 
-    /**
-     * Función que ejecuta toda la simulación desde la terminal.
-     */
+
     private void ejecutarSimulacion() {
         try {
             // Crear listas de clientes
@@ -36,15 +32,15 @@ public class HelloApplication extends Application {
             listaCamarero2.add(new Cliente("Cliente7", 4000));
             listaCamarero2.add(new Cliente("Cliente8", 6000));
 
-            // Iniciar hilos de clientes
+
             for (Cliente c : listaCamarero1) c.start();
             for (Cliente c : listaCamarero2) c.start();
 
-            // Crear camareros
+
             Camarero camarero1 = new Camarero("Camarero1", listaCamarero1);
             Camarero camarero2 = new Camarero("Camarero2", listaCamarero2);
 
-            // Iniciar hilos de camareros
+
             camarero1.start();
             camarero2.start();
 
@@ -62,6 +58,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch(); // Inicia el ciclo JavaFX (aunque no use interfaz)
+        launch();
     }
 }

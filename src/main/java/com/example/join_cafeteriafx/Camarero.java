@@ -25,24 +25,24 @@ public class Camarero extends Thread {
 
             if (!cliente.isAtendido()) {
                 int tiempoPreparacion = 2000 + random.nextInt(3000);
-                System.out.println(nombre + " prepara café para " + cliente.getNombre());
+                System.out.println(nombre + " prepara cafe para " + cliente.getNombre());
                 try {
                     if (tiempoPreparacion > cliente.getTiempoEspera()) {
                         Thread.sleep(cliente.getTiempoEspera());
-                        System.out.println(cliente.getNombre() + " se fue sin café");
+                        System.out.println(cliente.getNombre() + " se fue sin cafe");
                     } else {
                         Thread.sleep(tiempoPreparacion);
                         cliente.setAtendido(true);
                         atendidos++;
                         cliente.interrupt();
-                        System.out.println(nombre + " sirvió café a " + cliente.getNombre());
+                        System.out.println(nombre + " sirvio cafe a " + cliente.getNombre());
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
-        System.out.println(nombre + " terminó su turno");
+        System.out.println(nombre + " termino su turno");
     }
 
     public static int getAtendidos() {
