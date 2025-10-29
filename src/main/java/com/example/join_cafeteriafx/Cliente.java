@@ -1,3 +1,5 @@
+package com.example.join_cafeteriafx;
+
 import java.util.Random;
 class Cliente extends Thread {
     private String nombre;

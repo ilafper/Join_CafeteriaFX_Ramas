@@ -1,59 +1,51 @@
-import javafx.application.Platform;
+package com.example.join_cafeteriafx;
 
+import java.util.List;
 import java.util.Random;
 
-class CamareroFX extends Thread {
+public class Camarero extends Thread {
     private String nombre;
     private List<Cliente> clientes;
-    private CafeteriaController controller;
     private Random random = new Random();
     private static int atendidos = 0;
 
-    public CamareroFX(String nombre, List<ClienteFX> clientes, CafeteriaController controller) {
+    public Camarero(String nombre, List<Cliente> clientes) {
         this.nombre = nombre;
         this.clientes = clientes;
-        this.controller = controller;
     }
 
     @Override
     public void run() {
-        for (ClienteFX cliente : clientes) {
+        for (Cliente cliente : clientes) {
             try {
                 cliente.join(cliente.getTiempoEspera());
-            } catch (InterruptedException e) { e.printStackTrace(); }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             if (!cliente.isAtendido()) {
                 int tiempoPreparacion = 2000 + random.nextInt(3000);
-                Platform.runLater(() ->
-                        controller.log(nombre + " empieza a preparar café para " + cliente.getNombre()
-                                + " (tiempo preparación: " + tiempoPreparacion/1000.0 + " s)")
-                );
+                System.out.println(nombre + " prepara café para " + cliente.getNombre());
                 try {
                     if (tiempoPreparacion > cliente.getTiempoEspera()) {
                         Thread.sleep(cliente.getTiempoEspera());
-                        Platform.runLater(() ->
-                                controller.log(cliente.getNombre() + " se fue porque no recibió su café a tiempo")
-                        );
+                        System.out.println(cliente.getNombre() + " se fue sin café");
                     } else {
                         Thread.sleep(tiempoPreparacion);
                         cliente.setAtendido(true);
                         atendidos++;
                         cliente.interrupt();
-                        Platform.runLater(() ->
-                                controller.log(nombre + " sirvió el café a " + cliente.getNombre()
-                                        + " en " + tiempoPreparacion/1000.0 + " s")
-                        );
-                        Platform.runLater(() ->
-                                controller.updateContador(atendidos)
-                        );
+                        System.out.println(nombre + " sirvió café a " + cliente.getNombre());
                     }
-                } catch (InterruptedException e) { e.printStackTrace(); }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        Platform.runLater(() ->
-                controller.log(nombre + " ha terminado su turno.")
-        );
+        System.out.println(nombre + " terminó su turno");
     }
 
-    public static int getAtendidos() { return atendidos; }
+    public static int getAtendidos() {
+        return atendidos;
+    }
 }
