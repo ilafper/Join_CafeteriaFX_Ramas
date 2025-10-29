@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="-1.0" layoutY="-3.0" prefHeight="98.0" prefWidth="600.0" style="-fx-background-color: #854740;">
+         <children>
+            <Label layoutX="89.0" layoutY="23.0" text="Simulación de Restaurante" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="57.0" layoutY="154.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" />
+      <Pane layoutX="340.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" />
+      <Label text="Label" />
+      <Label layoutX="57.0" layoutY="118.0" text="Clientes atendidos" />
+   </children>
+</Pane>
